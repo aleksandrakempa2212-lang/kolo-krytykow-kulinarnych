@@ -9,23 +9,24 @@
 <style>
 /* Layout: one narrow column — name picker, month grid, list of days that work for all six */
 :root{
-  --bg:#eef5f2; --surface:#ffffff; --fg:#1d2b26; --muted:#5f7a70; --line:#d6e6df;
-  --accent:#11735a; --accent-fg:#ffffff; --soft:#e0efe9;
-  --c-ola:#e2557a; --c-marta:#f08a24; --c-weronika:#2b7bd6; --c-marianna:#9a4fd8;
+  --bg:#f3f0f8; --surface:#ffffff; --fg:#2a2238; --muted:#71688a; --line:#e2dcec;
+  --accent:#5b2a86; --accent-fg:#ffffff; --soft:#ebe3f5;
+  --c-ola:#e2557a; --c-lesia:#f08a24; --c-magda:#2f9e6e; --c-klaudia:#2b7bd6; --c-ala:#9a4fd8; --c-julia:#c9a100;
   --display:"Bricolage Grotesque",ui-rounded,system-ui,sans-serif;
   --body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#131c19; --surface:#1c2723; --fg:#eaf4f0; --muted:#9db5ab; --line:#2f4038;
-  --accent:#5fd3ad; --accent-fg:#131c19; --soft:#24332d;
-  --c-ola:#ff7d9c; --c-marta:#ffa552; --c-weronika:#64a6ff; --c-marianna:#bb86f5;
+  --bg:#1a1622; --surface:#241f2f; --fg:#f0ebf7; --muted:#a79fbb; --line:#383049;
+  --accent:#c79bf2; --accent-fg:#1a1622; --soft:#2f2740;
+  --c-ola:#ff7d9c; --c-lesia:#ffa552; --c-magda:#4fc995; --c-klaudia:#64a6ff; --c-ala:#bb86f5; --c-julia:#f0cb35;
   color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#131c19; --surface:#1c2723; --fg:#eaf4f0; --muted:#9db5ab; --line:#2f4038;
-  --accent:#5fd3ad; --accent-fg:#131c19; --soft:#24332d;
-  --c-ola:#ff7d9c; --c-marta:#ffa552; --c-weronika:#64a6ff; --c-marianna:#bb86f5;
+  --bg:#1a1622; --surface:#241f2f; --fg:#f0ebf7; --muted:#a79fbb; --line:#383049;
+  --accent:#c79bf2; --accent-fg:#1a1622; --soft:#2f2740;
+  --c-ola:#ff7d9c; --c-lesia:#ffa552; --c-magda:#4fc995; --c-klaudia:#64a6ff; --c-ala:#bb86f5; --c-julia:#f0cb35;
   color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
 .wrap{max-width:560px;margin:0 auto;padding-block:28px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,8vw,42px);line-height:1.05;margin:0;letter-spacing:-.02em;text-wrap:balance}
@@ -49,7 +50,7 @@ h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0}
 .wd{font-size:11px;text-align:center;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding-bottom:2px}
 .day{font:inherit;position:relative;aspect-ratio:1/1.08;max-width:100%;border-radius:12px;border:1.5px solid transparent;background:var(--soft);color:var(--fg);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:6px 2px 7px;font-variant-numeric:tabular-nums}
 .day .n{font-weight:700;font-size:15px}
-.day .dots{display:grid;grid-template-columns:repeat(2,6px);gap:2px}
+.day .dots{display:grid;grid-template-columns:repeat(3,6px);gap:2px}
 .day .dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}
 .day.mine{border-color:var(--me)}
 .day.mine .n{color:var(--me)}
@@ -71,6 +72,28 @@ h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0}
 .badge{font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--accent);color:var(--accent-fg);white-space:nowrap}
 .badge.near{background:var(--soft);color:var(--fg)}
 .empty{color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:16px;margin:0}
+.tabs{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:999px}
+.tab{flex:1;font:inherit;font-weight:700;border:0;border-radius:999px;padding:9px 12px;background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tab:focus-visible,.vote-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.pill{font-size:12px;min-width:20px;padding:1px 7px;border-radius:999px;background:var(--accent);color:var(--accent-fg)}
+.view{display:flex;flex-direction:column;gap:22px}
+.vote-intro{margin:0;color:var(--muted)}
+.vote{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.vote.lead{border:2px solid var(--accent)}
+.vote-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.vote-top b{font-family:var(--display);font-size:18px}
+.vote-top .sub{font-size:13px;color:var(--muted)}
+.bar{height:8px;border-radius:999px;background:var(--soft);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--accent);border-radius:999px}
+.vote-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.voters{display:flex;flex-wrap:wrap;gap:6px;font-size:13px;color:var(--muted);min-width:0}
+.voter{display:flex;align-items:center;gap:5px;color:var(--fg);font-weight:600}
+.voter i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.vote-btn{font:inherit;font-weight:700;border:2px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;padding:7px 16px;cursor:pointer;white-space:nowrap}
+.vote-btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg)}
+.winner{background:var(--accent);color:var(--accent-fg);border-radius:16px;padding:14px 16px}
+.winner b{font-family:var(--display);font-size:20px;display:block}
 .status{font-size:13px;color:var(--muted);min-height:1.2em;margin:0}
 @media (prefers-reduced-motion:no-preference){.day{transition:background .15s,border-color .15s,transform .1s}.day:active:not(.past){transform:scale(.94)}}
 </style>
@@ -80,7 +103,7 @@ h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0}
 <div class="wrap">
   <header>
     <h1>Kiedy się widzimy?</h1>
-    <p class="lead">Zaznacz dni, w które możesz. Dni na zielono pasują nam wszystkim.</p>
+    <p class="lead">Zaznacz dni, w które możesz. Dni na fioletowo pasują nam wszystkim.</p>
   </header>
 
   <section>
@@ -89,6 +112,12 @@ h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0}
     <p class="hint" id="hint">Wybierz swoje imię, a potem stukaj w dni w kalendarzu.</p>
   </section>
 
+  <nav class="tabs" role="tablist" aria-label="Widok">
+    <button class="tab" id="tab-cal" role="tab" aria-selected="true">Kalendarz</button>
+    <button class="tab" id="tab-vote" role="tab" aria-selected="false">Głosowanie <span class="pill" id="vote-count" hidden></span></button>
+  </nav>
+
+  <div class="view" id="view-cal">
   <section class="cal" aria-label="Kalendarz">
     <div class="cal-head">
       <button class="nav" id="prev" aria-label="Poprzedni miesiąc">‹</button>
@@ -103,6 +132,13 @@ h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0}
     <h2 style="margin-bottom:10px">Najlepsze terminy</h2>
     <ul class="matches" id="matches"></ul>
   </section>
+  </div>
+
+  <div class="view" id="view-vote" hidden>
+    <p class="vote-intro">Tu są dni, które pasują wszystkim. Każda ma jeden głos i może go zmienić w każdej chwili.</p>
+    <div id="winner"></div>
+    <ul class="matches" id="votes"></ul>
+  </div>
   <p class="status" id="status"></p>
 </div>
 
@@ -112,18 +148,19 @@ import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/
 
 // ===== TUTAJ WKLEJ SWOJĄ KONFIGURACJĘ Z FIREBASE (zamień cały blok) =====
 const firebaseConfig = {
-  apiKey: "WKLEJ_TUTAJ",
-  authDomain: "WKLEJ_TUTAJ",
-  databaseURL: "WKLEJ_TUTAJ",
-  projectId: "WKLEJ_TUTAJ",
-  storageBucket: "WKLEJ_TUTAJ",
-  messagingSenderId: "WKLEJ_TUTAJ",
-  appId: "WKLEJ_TUTAJ"
+  apiKey: "AIzaSyDzwFaf1me5yg2Nj8Dg8zHZBGllhLs1WCA",
+  authDomain: "kalendarz-typiary.firebaseapp.com",
+  databaseURL: "https://kalendarz-typiary-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "kalendarz-typiary",
+  storageBucket: "kalendarz-typiary.firebasestorage.app",
+  messagingSenderId: "343523719025",
+  appId: "1:343523719025:web:887fd4879d9dcdc99d28d0"
 };
 // =========================================================================
 
 const FRIENDS=[
-  {id:"ola",name:"Ola"},{id:"marta",name:"Marta"},{id:"weronika",name:"Weronika"},{id:"marianna",name:"Marianna"}
+  {id:"ola",name:"Ola"},{id:"lesia",name:"Lesia"},{id:"magda",name:"Magda"},
+  {id:"klaudia",name:"Klaudia"},{id:"ala",name:"Ala"},{id:"julia",name:"Julia"}
 ];
 const MONTHS=["styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec","sierpień","wrzesień","październik","listopad","grudzień"];
 const MONTHS_GEN=["stycznia","lutego","marca","kwietnia","maja","czerwca","lipca","sierpnia","września","października","listopada","grudnia"];
@@ -135,11 +172,12 @@ const key=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
 const today=new Date(); today.setHours(0,0,0,0);
 const todayKey=key(today);
 
-let me=null; try{me=localStorage.getItem("kiedy-me-grupa2")}catch(e){}
+let me=null; try{me=localStorage.getItem("kiedy-me")}catch(e){}
 if(!FRIENDS.some(f=>f.id===me)) me=null;
 let view=new Date(today.getFullYear(),today.getMonth(),1);
 const avail={}; FRIENDS.forEach(f=>avail[f.id]=new Set());
 let db=null;
+let votes={};
 
 const $=id=>document.getElementById(id);
 const setStatus=t=>$("status").textContent=t||"";
@@ -151,7 +189,7 @@ function renderNames(){
     b.className="name"; b.style.setProperty("--c",`var(--c-${f.id})`);
     b.setAttribute("aria-pressed",me===f.id);
     b.innerHTML=`<span class="dot"></span>`; b.append(f.name);
-    b.onclick=()=>{me=f.id;try{localStorage.setItem("kiedy-me-grupa2",me)}catch(e){};render()};
+    b.onclick=()=>{me=f.id;try{localStorage.setItem("kiedy-me",me)}catch(e){};render()};
     box.append(b);
   });
   const h=$("hint");
@@ -197,7 +235,7 @@ function renderMatches(){
     const dt=new Date(k+"T00:00:00");
     const li=document.createElement("li"); li.className="match"+(isFull?" full":"");
     const missing=FRIENDS.filter(f=>!avail[f.id].has(k)).map(f=>f.name);
-    li.innerHTML=`<div><b>${dt.getDate()} ${MONTHS_GEN[dt.getMonth()]}</b><div class="sub">${WD_LONG[dt.getDay()]}${isFull?"":" · brakuje: "+missing.join(", ")}</div></div><span class="badge${isFull?"":" near"}">${isFull?"wszystkie "+FRIENDS.length:(FRIENDS.length-1)+" z "+FRIENDS.length}</span>`;
+    li.innerHTML=`<div><b>${dt.getDate()} ${MONTHS_GEN[dt.getMonth()]}</b><div class="sub">${WD_LONG[dt.getDay()]}${isFull?"":" · brakuje: "+missing.join(", ")}</div></div><span class="badge${isFull?"":" near"}">${isFull?"wszystkie 6":"5 z 6"}</span>`;
     ul.append(li);
   };
   full.forEach(k=>item(k,true));
@@ -209,7 +247,78 @@ function renderMatches(){
   }
 }
 
-function render(){renderNames();renderCal();renderMatches()}
+function fullDays(){
+  const counts={};
+  FRIENDS.forEach(f=>avail[f.id].forEach(k=>{if(k>=todayKey)counts[k]=(counts[k]||0)+1}));
+  return Object.keys(counts).filter(k=>counts[k]===FRIENDS.length).sort();
+}
+
+function renderVotes(){
+  const days=fullDays();
+  const pill=$("vote-count"); pill.hidden=!days.length; pill.textContent=days.length;
+  const ul=$("votes"); ul.innerHTML=""; $("winner").innerHTML="";
+  if(!days.length){
+    const p=document.createElement("li"); p.className="empty";
+    p.textContent="Na razie nie ma dnia, który pasuje wszystkim. Gdy w kalendarzu pojawi się taki dzień, będzie można na niego głosować.";
+    ul.append(p); return;
+  }
+  const tally={}; days.forEach(k=>tally[k]=[]);
+  FRIENDS.forEach(f=>{const v=votes[f.id]; if(tally[v]) tally[v].push(f)});
+  const voted=FRIENDS.filter(f=>tally[votes[f.id]]).length;
+  const max=Math.max(...days.map(k=>tally[k].length));
+  const leaders=days.filter(k=>max>0&&tally[k].length===max);
+  if(voted===FRIENDS.length&&leaders.length===1){
+    const dt=new Date(leaders[0]+"T00:00:00");
+    $("winner").innerHTML=`<div class="winner">Wybrany termin<b>${WD_LONG[dt.getDay()]}, ${dt.getDate()} ${MONTHS_GEN[dt.getMonth()]}</b>Wszystkie zagłosowały. Do zobaczenia!</div>`;
+  }
+  days.forEach(k=>{
+    const dt=new Date(k+"T00:00:00"), who=tally[k], mine=me&&votes[me]===k;
+    const li=document.createElement("li"); li.className="vote"+(leaders.includes(k)?" lead":"");
+    const badge=leaders.includes(k)?(leaders.length>1?"remis":"prowadzi"):"";
+    li.innerHTML=`<div class="vote-top"><div><b>${dt.getDate()} ${MONTHS_GEN[dt.getMonth()]}</b><div class="sub">${WD_LONG[dt.getDay()]} · ${who.length} z ${FRIENDS.length} głosów</div></div>${badge?`<span class="badge">${badge}</span>`:""}</div>
+      <div class="bar"><span style="width:${who.length/FRIENDS.length*100}%"></span></div>
+      <div class="vote-bottom"><div class="voters">${who.length?who.map(f=>`<span class="voter"><i style="background:var(--c-${f.id})"></i>${f.name}</span>`).join(""):"Jeszcze nikt"}</div></div>`;
+    const b=document.createElement("button");
+    b.className="vote-btn"; b.setAttribute("aria-pressed",!!mine);
+    b.textContent=mine?"Twój głos ✓":"Głosuj";
+    b.onclick=()=>castVote(k);
+    li.querySelector(".vote-bottom").append(b);
+    ul.append(li);
+  });
+  const info=document.createElement("li"); info.className="sub"; info.style.cssText="font-size:13px;color:var(--muted);list-style:none";
+  const missing=FRIENDS.filter(f=>!tally[votes[f.id]]).map(f=>f.name);
+  info.textContent=missing.length?`Zagłosowało ${voted} z ${FRIENDS.length}. Czekamy na: ${missing.join(", ")}.`:`Zagłosowały wszystkie.`;
+  ul.append(info);
+}
+
+async function castVote(k){
+  if(!me){setStatus("Najpierw wybierz swoje imię u góry.");$("names").scrollIntoView({behavior:"smooth",block:"center"});return}
+  if(!db){setStatus("Kalendarz nie jest jeszcze połączony z bazą.");return}
+  const id=me, prev=votes[id], undo=prev===k;
+  if(undo) delete votes[id]; else votes[id]=k;
+  renderVotes(); setStatus("Zapisuję głos…");
+  try{
+    const r=ref(db,`votes/${id}`);
+    await (undo?remove(r):set(r,k));
+    setStatus(undo?"Głos wycofany":"Głos zapisany ✓");
+  }catch(e){
+    if(prev) votes[id]=prev; else delete votes[id];
+    renderVotes(); setStatus("Nie udało się zapisać głosu. Sprawdź internet i spróbuj jeszcze raz.");
+  }
+}
+
+function showTab(t){
+  const vote=t==="vote";
+  $("tab-cal").setAttribute("aria-selected",!vote);
+  $("tab-vote").setAttribute("aria-selected",vote);
+  $("view-cal").hidden=vote; $("view-vote").hidden=!vote;
+  try{localStorage.setItem("kiedy-tab",t)}catch(e){}
+}
+$("tab-cal").onclick=()=>showTab("cal");
+$("tab-vote").onclick=()=>showTab("vote");
+try{if(localStorage.getItem("kiedy-tab")==="vote")showTab("vote")}catch(e){}
+
+function render(){renderNames();renderCal();renderMatches();renderVotes()}
 
 async function toggle(k){
   if(!me){setStatus("Najpierw wybierz swoje imię u góry.");$("names").scrollIntoView({behavior:"smooth",block:"center"});return}
@@ -242,6 +351,8 @@ if(firebaseConfig.apiKey==="WKLEJ_TUTAJ"){
       FRIENDS.forEach(f=>avail[f.id]=new Set(Object.keys(v[f.id]||{})));
       render(); if($("status").textContent==="Łączę…") setStatus("");
     },()=>setStatus("Nie mogę odczytać kalendarza. Sprawdź reguły bazy w Firebase."));
+    onValue(ref(db,"votes"),snap=>{votes=snap.val()||{};renderVotes()},
+      ()=>setStatus("Nie mogę odczytać głosowania. Wklej nowe reguły w Firebase."));
   }catch(e){setStatus("Konfiguracja Firebase jest niepoprawna. Sprawdź, czy wkleiłaś cały blok.")}
 }
 </script>
