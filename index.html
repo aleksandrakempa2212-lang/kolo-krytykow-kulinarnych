@@ -9,21 +9,21 @@
 <style>
 /* Layout: one narrow column — name picker, month grid, list of days that work for all six */
 :root{
-  --bg:#f3f0f8; --surface:#ffffff; --fg:#2a2238; --muted:#71688a; --line:#e2dcec;
-  --accent:#5b2a86; --accent-fg:#ffffff; --soft:#ebe3f5;
-  --c-ola:#e2557a; --c-lesia:#f08a24; --c-magda:#2f9e6e; --c-klaudia:#2b7bd6; --c-ala:#9a4fd8; --c-julia:#c9a100;
+  --bg:#eef5f2; --surface:#ffffff; --fg:#1d2b26; --muted:#5f7a70; --line:#d6e6df;
+  --accent:#11735a; --accent-fg:#ffffff; --soft:#e0efe9;
+  --c-ola:#e2557a; --c-marta:#f08a24; --c-weronika:#2b7bd6; --c-marianna:#9a4fd8;
   --display:"Bricolage Grotesque",ui-rounded,system-ui,sans-serif;
   --body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#1a1622; --surface:#241f2f; --fg:#f0ebf7; --muted:#a79fbb; --line:#383049;
-  --accent:#c79bf2; --accent-fg:#1a1622; --soft:#2f2740;
-  --c-ola:#ff7d9c; --c-lesia:#ffa552; --c-magda:#4fc995; --c-klaudia:#64a6ff; --c-ala:#bb86f5; --c-julia:#f0cb35;
+  --bg:#131c19; --surface:#1c2723; --fg:#eaf4f0; --muted:#9db5ab; --line:#2f4038;
+  --accent:#5fd3ad; --accent-fg:#131c19; --soft:#24332d;
+  --c-ola:#ff7d9c; --c-marta:#ffa552; --c-weronika:#64a6ff; --c-marianna:#bb86f5;
   color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#1a1622; --surface:#241f2f; --fg:#f0ebf7; --muted:#a79fbb; --line:#383049;
-  --accent:#c79bf2; --accent-fg:#1a1622; --soft:#2f2740;
-  --c-ola:#ff7d9c; --c-lesia:#ffa552; --c-magda:#4fc995; --c-klaudia:#64a6ff; --c-ala:#bb86f5; --c-julia:#f0cb35;
+  --bg:#131c19; --surface:#1c2723; --fg:#eaf4f0; --muted:#9db5ab; --line:#2f4038;
+  --accent:#5fd3ad; --accent-fg:#131c19; --soft:#24332d;
+  --c-ola:#ff7d9c; --c-marta:#ffa552; --c-weronika:#64a6ff; --c-marianna:#bb86f5;
   color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -50,7 +50,7 @@ h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0}
 .wd{font-size:11px;text-align:center;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding-bottom:2px}
 .day{font:inherit;position:relative;aspect-ratio:1/1.08;max-width:100%;border-radius:12px;border:1.5px solid transparent;background:var(--soft);color:var(--fg);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:6px 2px 7px;font-variant-numeric:tabular-nums}
 .day .n{font-weight:700;font-size:15px}
-.day .dots{display:grid;grid-template-columns:repeat(3,6px);gap:2px}
+.day .dots{display:grid;grid-template-columns:repeat(2,6px);gap:2px}
 .day .dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}
 .day.mine{border-color:var(--me)}
 .day.mine .n{color:var(--me)}
@@ -103,7 +103,7 @@ h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0}
 <div class="wrap">
   <header>
     <h1>Kiedy się widzimy?</h1>
-    <p class="lead">Zaznacz dni, w które możesz. Dni na fioletowo pasują nam wszystkim.</p>
+    <p class="lead">Zaznacz dni, w które możesz. Dni na zielono pasują nam wszystkim.</p>
   </header>
 
   <section>
@@ -148,19 +148,18 @@ import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/
 
 // ===== TUTAJ WKLEJ SWOJĄ KONFIGURACJĘ Z FIREBASE (zamień cały blok) =====
 const firebaseConfig = {
-  apiKey: "AIzaSyDzwFaf1me5yg2Nj8Dg8zHZBGllhLs1WCA",
-  authDomain: "kalendarz-typiary.firebaseapp.com",
-  databaseURL: "https://kalendarz-typiary-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "kalendarz-typiary",
-  storageBucket: "kalendarz-typiary.firebasestorage.app",
-  messagingSenderId: "343523719025",
-  appId: "1:343523719025:web:887fd4879d9dcdc99d28d0"
+  apiKey: "AIzaSyAljM4dyXv2a8lp-BQb6eTMz-1_c4mpWsw",
+  authDomain: "kolo-krytykow-kulinarnych.firebaseapp.com",
+  databaseURL: "https://kolo-krytykow-kulinarnych-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "kolo-krytykow-kulinarnych",
+  storageBucket: "kolo-krytykow-kulinarnych.firebasestorage.app",
+  messagingSenderId: "877188429053",
+  appId: "1:877188429053:web:7b828e6159a1427a40fa94"
 };
 // =========================================================================
 
 const FRIENDS=[
-  {id:"ola",name:"Ola"},{id:"lesia",name:"Lesia"},{id:"magda",name:"Magda"},
-  {id:"klaudia",name:"Klaudia"},{id:"ala",name:"Ala"},{id:"julia",name:"Julia"}
+  {id:"ola",name:"Ola"},{id:"marta",name:"Marta"},{id:"weronika",name:"Weronika"},{id:"marianna",name:"Marianna"}
 ];
 const MONTHS=["styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec","sierpień","wrzesień","październik","listopad","grudzień"];
 const MONTHS_GEN=["stycznia","lutego","marca","kwietnia","maja","czerwca","lipca","sierpnia","września","października","listopada","grudnia"];
@@ -172,7 +171,7 @@ const key=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
 const today=new Date(); today.setHours(0,0,0,0);
 const todayKey=key(today);
 
-let me=null; try{me=localStorage.getItem("kiedy-me")}catch(e){}
+let me=null; try{me=localStorage.getItem("kiedy-me-grupa2")}catch(e){}
 if(!FRIENDS.some(f=>f.id===me)) me=null;
 let view=new Date(today.getFullYear(),today.getMonth(),1);
 const avail={}; FRIENDS.forEach(f=>avail[f.id]=new Set());
@@ -189,7 +188,7 @@ function renderNames(){
     b.className="name"; b.style.setProperty("--c",`var(--c-${f.id})`);
     b.setAttribute("aria-pressed",me===f.id);
     b.innerHTML=`<span class="dot"></span>`; b.append(f.name);
-    b.onclick=()=>{me=f.id;try{localStorage.setItem("kiedy-me",me)}catch(e){};render()};
+    b.onclick=()=>{me=f.id;try{localStorage.setItem("kiedy-me-grupa2",me)}catch(e){};render()};
     box.append(b);
   });
   const h=$("hint");
@@ -235,7 +234,7 @@ function renderMatches(){
     const dt=new Date(k+"T00:00:00");
     const li=document.createElement("li"); li.className="match"+(isFull?" full":"");
     const missing=FRIENDS.filter(f=>!avail[f.id].has(k)).map(f=>f.name);
-    li.innerHTML=`<div><b>${dt.getDate()} ${MONTHS_GEN[dt.getMonth()]}</b><div class="sub">${WD_LONG[dt.getDay()]}${isFull?"":" · brakuje: "+missing.join(", ")}</div></div><span class="badge${isFull?"":" near"}">${isFull?"wszystkie 6":"5 z 6"}</span>`;
+    li.innerHTML=`<div><b>${dt.getDate()} ${MONTHS_GEN[dt.getMonth()]}</b><div class="sub">${WD_LONG[dt.getDay()]}${isFull?"":" · brakuje: "+missing.join(", ")}</div></div><span class="badge${isFull?"":" near"}">${isFull?"wszystkie "+FRIENDS.length:(FRIENDS.length-1)+" z "+FRIENDS.length}</span>`;
     ul.append(li);
   };
   full.forEach(k=>item(k,true));
